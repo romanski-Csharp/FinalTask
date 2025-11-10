@@ -11,7 +11,7 @@ namespace POMs
         
         private IWebElement Username => _driver.FindElement(By.CssSelector("#user-name"));
         private IWebElement Password => _driver.FindElement(By.CssSelector("#password"));
-        private IWebElement LoginBtn => _driver.FindElement(By.CssSelector(".submit-button.btn_action"));
+        private IWebElement LoginBtn => _driver.FindElement(By.CssSelector("[data-test='login-button']"));
         private IWebElement Error => _driver.FindElement(By.CssSelector("[data-test='error']"));
         private IWebElement Title => _driver.FindElement(By.CssSelector(".app_logo"));
 
