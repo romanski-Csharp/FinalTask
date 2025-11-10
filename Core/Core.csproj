@@ -11,4 +11,10 @@
     <PackageReference Include="Selenium.WebDriver" Version="4.38.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Logs\log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

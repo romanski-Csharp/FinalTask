@@ -5,21 +5,23 @@ namespace SauceDemoTests
 {
     public static class TestData
     {
-        public static IEnumerable<object[]> GetValidCredentials()
-        {
-            var driver = DriverManager.GetDriver(BrowserType.Edge);
-            var loginPage = new LoginPage(driver);
-            loginPage.Open();
-
-            string[] users = loginPage.GetCredentials();
-            string password = loginPage.GetUniversalPassword();
-
-            foreach(string username in users)
+        private const string password = "secret_sauce"; 
+        public static IEnumerable<object[]> Browsers =>
+            new List<object[]>
             {
-                yield return new object[] { username, password };
-            }
-            DriverManager.Quit();
-        }
+                new object[] { BrowserType.Edge },
+                new object[] { BrowserType.FireFox }
+            };
+        public static IEnumerable<object[]> ValidCredentials =>
+            new List<object[]>
+            {
+                new object[]{ "standard_user", password, true},
+                new object[]{ "locked_out_user", password, false},
+                new object[]{ "problem_user", password, true},
+                new object[]{ "performance_glitch_user", password, true},
+                new object[]{ "error_user", password, true},
+                new object[]{ "visual_user", password, true}
+            };
         
     }
 }

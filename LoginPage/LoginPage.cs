@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using Core.Logs;
 
 namespace POMs
 {
@@ -6,7 +7,6 @@ namespace POMs
     {
         public LoginPage(IWebDriver driver) : base(driver) 
         { 
-
         }
         
         private IWebElement Username => _driver.FindElement(By.CssSelector("#user-name"));
@@ -15,29 +15,27 @@ namespace POMs
         private IWebElement Error => _driver.FindElement(By.CssSelector("[data-test='error']"));
         private IWebElement Title => _driver.FindElement(By.CssSelector(".app_logo"));
 
-        public void Open() => _driver.Navigate().GoToUrl("https://www.saucedemo.com/");
+        public void Open()
+        {
+            Logger.Info("Navigating to Login Page");
+            _driver.Navigate().GoToUrl(BaseUrl);
+        } 
 
         public void Login(string username, string password)
         {
             Username.Clear();
+            Logger.Info($"Attempting to log in with username='{username}'");
             Username.SendKeys(username);
             Password.Clear();
             Password.SendKeys(password);
+            Logger.Info("Clicking on Login button");
             LoginBtn.Click();
         }
 
-        public string GetErrorText() => Error.Text;
-
-        public string[] GetCredentials()
+        public string GetErrorText()
         {
-            var credentialDiv = _driver.FindElement(By.CssSelector("[data-test='login-credentials']"));
-            return credentialDiv.Text.Split("\n").Skip(1).ToArray();
-        }
-
-        public string GetUniversalPassword()
-        {
-            var passwordDiv = _driver.FindElement(By.CssSelector("[data-test='login-password']"));
-            return passwordDiv.Text.Split('\n').Last();
+            Logger.Info("Receiving error message");
+            return Error.Text;
         }
 
         public string AppLogoTxt() => Title.Text;
