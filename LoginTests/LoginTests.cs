@@ -51,14 +51,14 @@ namespace SauceDemoTests
         }
 
         [Theory]
-        [MemberData(nameof(TestData.ValidCredentials), MemberType = typeof(TestData))]
-        public void Login_RightCredentials(string username, string password, bool shouldLogin)
+        [MemberData(nameof(TestData.ValidCredentialsWithBrowsers), MemberType = typeof(TestData))]
+        public void Login_RightCredentials(BrowserType browser, string username, string password, bool shouldLogin)
         {
             IWebDriver driver = null;
             try
             {
                 Logger.Info($"[UC3] Login test for user: {username}");
-                driver = DriverManager.GetDriver(BrowserType.Edge);
+                driver = DriverManager.GetDriver(browser);
                 var loginPage = new LoginPage(driver);
                 loginPage.Open();
                 loginPage.Login(username, password);

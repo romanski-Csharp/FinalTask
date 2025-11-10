@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Collections.Generic;
+using Core;
 using POMs;
 
 namespace SauceDemoTests
@@ -22,6 +23,22 @@ namespace SauceDemoTests
                 new object[]{ "error_user", password, true},
                 new object[]{ "visual_user", password, true}
             };
-        
+        public static IEnumerable<object[]> ValidCredentialsWithBrowsers
+        {
+            get
+            {
+                var browserTypes = Browsers.Select(x => (BrowserType)x[0]);
+
+                foreach(var browswer in browserTypes)
+                {
+                    foreach(var credential in ValidCredentials)
+                    {
+                        var combinedList = credential.ToList();
+                        combinedList.Insert(0, browswer);
+                        yield return combinedList.ToArray();
+                    }
+                }
+            }
+        }
     }
 }
