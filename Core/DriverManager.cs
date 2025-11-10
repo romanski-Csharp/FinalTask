@@ -15,5 +15,11 @@ namespace Core
             }
             return _driver.Value;
         }
+        
+        public static void Quit()
+        {
+            _driver.Value?.Quit();
+            _driver.Value = null;
+        }
     }
 }
