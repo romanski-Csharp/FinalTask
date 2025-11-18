@@ -12,10 +12,11 @@ namespace SauceDemoTests
         [MemberData(nameof(TestData.Browsers), MemberType = typeof(TestData))]
         public void Login_EmptyCredentials(BrowserType browser)
         {
+            IWebDriver driver = null;
             try
             {
                 Logger.Info($"[UC1] Starting test on {browser}");
-                IWebDriver driver = DriverManager.GetDriver(browser);
+                driver = DriverManager.GetDriver(browser);
                 var loginPage = new LoginPage(driver);
                 loginPage.Open();
                 loginPage.Login(string.Empty, string.Empty);
@@ -32,10 +33,11 @@ namespace SauceDemoTests
         [MemberData(nameof(TestData.Browsers), MemberType = typeof(TestData))]
         public void Login_EmptyPassword(BrowserType browser)
         {
+            IWebDriver driver = null;
             try
             {
                 Logger.Info($"[UC2] Starting test on {browser}");
-                IWebDriver driver = DriverManager.GetDriver(browser);
+                driver = DriverManager.GetDriver(browser);
                 var loginPage = new LoginPage(driver);
                 loginPage.Open();
                 loginPage.Login("any_user", string.Empty);
@@ -52,10 +54,11 @@ namespace SauceDemoTests
         [MemberData(nameof(TestData.ValidCredentialsWithBrowsers), MemberType = typeof(TestData))]
         public void Login_RightCredentials(BrowserType browser, string username, string password, bool shouldLogin)
         {
+            IWebDriver driver = null;
             try
             {
                 Logger.Info($"[UC3] Login test for user: {username}");
-                IWebDriver driver = DriverManager.GetDriver(browser);
+                driver = DriverManager.GetDriver(browser);
                 var loginPage = new LoginPage(driver);
                 loginPage.Open();
                 loginPage.Login(username, password);
